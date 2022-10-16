@@ -1,8 +1,16 @@
 package domain.entities;
 
-public class GeneralLedger {
+public class GeneralLedger implements EntityInterface {
 
-    public GeneralLedger() {
+    private String ledgerId;
+    private Transaction firstTransaction;
+    private Transaction secondTransaction;
+
+    public GeneralLedger(String ledgerId, Transaction firstTransaction, 
+        Transaction secondTransaction) {
+            this.ledgerId = ledgerId;
+            this.firstTransaction = firstTransaction;
+            this.secondTransaction = secondTransaction;
     }
     
 }

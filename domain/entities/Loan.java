@@ -2,16 +2,26 @@ package domain.entities;
 
 import java.math.BigDecimal;
 
-public class Loan {
+import domain.entities.borrowers.BorrowerInterface;
+import domain.entities.lenders.LenderInterface;
 
-    private BigDecimal loanAmount;
-    private BigDecimal interestRate;
-    private Integer timePeriod;
+public class Loan implements EntityInterface {
 
-    public Loan(BigDecimal loanAmount, BigDecimal interestRate, Integer timePeriod) {
+    public BigDecimal loanAmount;
+    public BigDecimal interestRate;
+    public Integer timePeriod;
+    public Account borrower;
+    public Account lender;
+    public String loanId;
+
+    public Loan(String loanId, BigDecimal loanAmount, BigDecimal interestRate, Integer timePeriod, 
+    Account borrower, Account lender) {
+        this.loanId = loanId;
         this.loanAmount = loanAmount;
         this.interestRate = interestRate;
         this.timePeriod = timePeriod;
+        this.borrower = borrower;
+        this.lender = lender;
     }
     
     public BigDecimal interest() {

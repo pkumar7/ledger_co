@@ -5,7 +5,7 @@ import java.util.Date;
 
 import domain.enums.EntryType;
 
-public class Transaction {
+public class Transaction implements EntityInterface{
 
     private String transactionId;
     private Account sourceAccount;
