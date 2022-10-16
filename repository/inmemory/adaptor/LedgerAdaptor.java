@@ -4,14 +4,17 @@ import org.json.simple.JSONObject;
 import domain.entities.EntityInterface;    
 
 public class LedgerAdaptor {
-    public static JSONObject toStorageData(EntityInterface entityInterface) {
-        return null;
+    // public static JSONObject toJson(IndividualBorrower borrower) {
+    //     JSONObject obj=new JSONObject();    
+    //     obj.put("borrowerName", borrower.borrowerName);    
+    //     obj.put("borrowerId", borrower.borrowerId);    
+    //     return obj;
+    // }
 
-    }
-
-    public static EntityInterface toEntiy(JSONObject data) {
-        return null;
-        
-    }
+    // public static EntityInterface toEntiy(JSONObject json) {
+    //     IndividualBorrower borrower = new IndividualBorrower(json.get("borrowerName").toString(), 
+    //     json.get("borrowerId").toString());
+    //     return borrower;   
+    // }
 
 }

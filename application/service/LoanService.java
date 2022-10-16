@@ -28,7 +28,8 @@ public class LoanService {
         LenderService lenderService = new LenderService(this.repository);
         LenderInterface lender = lenderService.createBank(bankName);
         Account lenderAccount = accountService.createAccount(lender);
-        Loan loan = LoanFactory.newLoan(loanAmount, interestRate, numberOfYears, borrower, lender);
+        Loan loan = LoanFactory.newLoan(loanAmount, interestRate, numberOfYears, 
+                borrowerAccount, lenderAccount);
         this.repository.save(loan);
         TransactionService transactionService = new TransactionService(this.repository);
         Transaction firstTransaction = transactionService.debitAmount(lenderAccount, 
