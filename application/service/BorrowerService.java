@@ -1,8 +1,6 @@
 package application.service;
 import repository.RepositoryInterface;
-import application.factories.AccountFactory;
 import application.factories.BorrowerFactory;
-import domain.entities.Account;
 import domain.entities.borrowers.BorrowerInterface;
 import domain.entities.EntityInterface;
 
@@ -15,14 +13,13 @@ public class BorrowerService {
     }
 
     public BorrowerInterface createIndividualBorrower(String borrowerName) {
-        Account account = AccountFactory.newAccount();
-        BorrowerInterface borrower = BorrowerFactory.newIndividualBorrower(account, borrowerName);
+        BorrowerInterface borrower = BorrowerFactory.newIndividualBorrower(borrowerName);
         this.repository.save(borrower);
         return borrower;
     }
 
     public EntityInterface getBorrower(String borrowerName) {
-        EntityInterface borrower = this.repository.search(borrowerName);
+        EntityInterface borrower = this.repository.get(borrowerName);
         return borrower;
     }
 

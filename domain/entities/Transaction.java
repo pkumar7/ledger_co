@@ -7,12 +7,12 @@ import domain.enums.EntryType;
 
 public class Transaction implements EntityInterface{
 
-    private String transactionId;
-    private Account sourceAccount;
-    private Account destinationAccount;
-    private Date transactionTime;
-    private EntryType entryType;
-    private BigDecimal amount;
+    public String transactionId;
+    public Account sourceAccount;
+    public Account destinationAccount;
+    public Date transactionTime;
+    public EntryType entryType;
+    public BigDecimal amount;
 
     public Transaction(String transactionId, Account sourceAccount, 
     Account destinationAccount, EntryType entry, BigDecimal amount) {

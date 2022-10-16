@@ -1,5 +1,5 @@
 package domain.entities;
 
-public interface AccountHolder extends EntityInterface{
-    
+public interface AccountHolderInterface extends EntityInterface{
+    public String accountHolderId = null;
 }

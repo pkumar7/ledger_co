@@ -15,7 +15,7 @@ public class BankRepository implements InMemoryRepositoryInterface {
     @Override
     public void save(EntityInterface entity) {
         JSONObject json = BankAdaptor.toJson((Bank) entity);
-        bankData.put(json.get("BankId").toString(), json);
+        bankData.put(json.get("bankId").toString(), json);
     }
 
     @Override

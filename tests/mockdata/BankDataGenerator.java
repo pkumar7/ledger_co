@@ -1,21 +1,17 @@
 package tests.mockdata;
-import java.util.function.Function;
 
-import domain.entities.Account;
+import application.service.LenderService;
 import domain.entities.lenders.Bank;
+import repository.inmemory.BankRepository;
+import repository.inmemory.InMemoryRepositoryInterface;
 
 public class BankDataGenerator {
-
-
-    public static Account createTestAccount() {
-        Account testAccount = new Account("1");
-        return testAccount;
-    }
     
     public static Bank testBank() {
-        Bank testBank = new Bank("1", "TestBank", createTestAccount());
+        InMemoryRepositoryInterface bankRepository = new BankRepository();
+        LenderService lenderService = new LenderService(bankRepository);
+        Bank testBank = lenderService.createBank("testBank");
         return testBank;
     }
     
-
 }

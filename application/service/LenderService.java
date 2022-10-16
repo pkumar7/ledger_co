@@ -19,8 +19,8 @@ public class LenderService {
         return bank;
     }
 
-    public EntityInterface getBank(String bankName) {
-        EntityInterface bank = this.repository.search(bankName);
+    public Bank getBank(String bankName) {
+        Bank bank = (Bank) this.repository.get(bankName);
         return bank;
     }
 

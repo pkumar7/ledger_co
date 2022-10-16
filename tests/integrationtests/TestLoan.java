@@ -1,5 +1,5 @@
 package tests.integrationtests;
 
-public class TestAddBorrower {
+public class TestLoan {
     
 }

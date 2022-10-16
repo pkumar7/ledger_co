@@ -16,7 +16,7 @@ public class LoanService {
         this.repository = repository;
     }
 
-    public void createLoanForIndividualBorrower(String bankName, String borrowerName, 
+    public Loan createLoanForIndividualBorrower(String bankName, String borrowerName, 
     BigDecimal loanAmount, Integer numberOfYears, BigDecimal interestRate) {
 
         // TODO: Should add transaction here.
@@ -38,6 +38,7 @@ public class LoanService {
             lenderAccount, loanAmount);
         LedgerService ledgerService = new LedgerService(this.repository);
         ledgerService.AddLedgerEntry(firstTransaction, secondTransaction);
+        return loan;
 
     }
 

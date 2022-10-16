@@ -14,7 +14,6 @@ public class BankAdaptor {
     }
 
     public static EntityInterface toEntiy(JSONObject json) {
-        String accountId = json.get("accountId").toString();
         Bank bank = new Bank(json.get("bankName").toString(), json.get("bankId").toString());
         return bank;   
     }

@@ -21,5 +21,11 @@ public class LedgerRepository implements InMemoryRepositoryInterface {
         // TODO Auto-generated method stub
         return null;
     }
+
+    @Override
+    public EntityInterface search(String name) {
+        // TODO Auto-generated method stub
+        return null;
+    }
     
 }

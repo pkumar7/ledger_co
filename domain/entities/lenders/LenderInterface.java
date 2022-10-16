@@ -1,6 +1,6 @@
 package domain.entities.lenders;
 
-import domain.entities.AccountHolder;
+import domain.entities.AccountHolderInterface;
 
-public interface LenderInterface extends AccountHolder {
+public interface LenderInterface extends AccountHolderInterface {
 }

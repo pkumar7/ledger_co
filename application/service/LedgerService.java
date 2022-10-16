@@ -14,6 +14,7 @@ public class LedgerService {
 
     public void AddLedgerEntry(Transaction firstTransaction, Transaction secondTransaction) {
         GeneralLedger ledger = LedgerFactory.newLedgerEntry(firstTransaction, secondTransaction);
+        this.repository.save(ledger);
     }
 
 }

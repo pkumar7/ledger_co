@@ -7,12 +7,12 @@ public class Account implements EntityInterface {
 
     public String accountId;
     public BigDecimal balance;
-    public AccountHolder accountHolder;
+    public AccountHolderInterface accountHolder;
 
     // One bank or borrower can have multiple accounts. Each account is linked with one 
     // accountholder.
 
-    public Account(String accountId, AccountHolder accountHolder) {
+    public Account(String accountId, AccountHolderInterface accountHolder) {
         this.accountId = accountId;
         this.accountHolder = accountHolder;
         this.setBalance(BigDecimal.valueOf(0));

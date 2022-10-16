@@ -7,8 +7,10 @@ import java.util.UUID;
 public class BorrowerFactory {
     public static BorrowerInterface newIndividualBorrower(String borrowerName){
         UUID uuid=UUID.randomUUID();
+        // Using name as id for simplicity
+
         BorrowerInterface borrower = new IndividualBorrower(
-            uuid.toString(), borrowerName);
+            borrowerName, borrowerName);
         return borrower;
     }
     
