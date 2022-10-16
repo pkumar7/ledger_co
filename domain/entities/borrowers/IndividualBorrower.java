@@ -13,5 +13,11 @@ public class IndividualBorrower implements BorrowerInterface{
         this.accountHolderId = borrowerId;
 
     }
+
+    @Override
+    public String getAccountHolderId() {
+        return this.accountHolderId;
+        
+    }
     
 }

@@ -1,5 +1,6 @@
 package repository.inmemory;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,7 +38,7 @@ public class TransactionRepository implements InMemoryRepositoryInterface {
     }
 
     @Override
-    public EntityInterface search(String name) {
+    public ArrayList<EntityInterface> search(String... name) {
         // TODO Auto-generated method stub
         return null;
     }

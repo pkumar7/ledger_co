@@ -2,9 +2,9 @@ package domain.entities;
 
 public class GeneralLedger implements EntityInterface {
 
-    private String ledgerId;
-    private Transaction firstTransaction;
-    private Transaction secondTransaction;
+    public String ledgerId;
+    public Transaction firstTransaction;
+    public Transaction secondTransaction;
 
     public GeneralLedger(String ledgerId, Transaction firstTransaction, 
         Transaction secondTransaction) {

@@ -18,24 +18,13 @@ import repository.inmemory.LedgerRepository;
 import tests.mockdata.LoanDataGenerator;
 
 
-public class TestLoan {
+public class TestLedger {
     @Test
     public void testAddLoan() {
-        LoanService loanService = LoanDataGenerator.getLoanServiceInstance();
         Loan loan = LoanDataGenerator.testLoan();
-        String expectedLoanId = loan.borrower.accountHolder.accountHolderId + 
-                        loan.lender.accountHolder.accountHolderId;
-        Loan savedLoan = loanService.getLoan(loan.loanId);
-        assertEquals(expectedLoanId, savedLoan.loanId);
-        assertEquals(loan.loanAmount, savedLoan.loanAmount);
-        assertEquals(loan.interestRate, savedLoan.interestRate);
-        assertEquals(loan.timePeriod, savedLoan.timePeriod);
-        assertEquals(loan.lender.accountId, savedLoan.lender.accountId);
-        assertEquals(loan.borrower.accountId, savedLoan.borrower.accountId);
         InMemoryRepositoryInterface ledgerRepo = new LedgerRepository();
         LedgerService ledgerService = new LedgerService(ledgerRepo);
         ArrayList<EntityInterface> ledgers =  ledgerService.searchLedger(loan.borrower.accountId, loan.lender.accountId);
-        System.out.println(ledgers);
         GeneralLedger firstLedgerEntry = (GeneralLedger) ledgers.get(0);
         BigDecimal loanAmount = new BigDecimal(10000);
         assertEquals(firstLedgerEntry.firstTransaction.amount, loanAmount);
@@ -51,7 +40,6 @@ public class TestLoan {
         assertEquals(firstLedgerEntry.secondTransaction.destinationAccount.accountId, 
             loan.lender.accountId);
         assertEquals(firstLedgerEntry.secondTransaction.entryType, EntryType.CREDIT);
-
     }
 
 }

@@ -7,10 +7,18 @@ import domain.entities.Loan;
 
 public class LoanFactory {
     public static Loan newLoan(BigDecimal loanAmount, BigDecimal interestRate, Integer timePeriod, 
-    Account borrower, Account lender){
+    Account borrowerAccount, Account lenderAccount){
         UUID uuid=UUID.randomUUID();
-        Loan loan = new Loan(uuid.toString(), loanAmount, interestRate, timePeriod, 
-        borrower, lender);
+
+        // creating id from accountholder id as a workaround to make the implementation simpler.
+        // Can use uuid and implement search functionality on top of borrower and lender names, as
+        // input are only the names.
+
+        String id = borrowerAccount.accountHolder.accountHolderId + 
+        lenderAccount.accountHolder.accountHolderId;
+
+        Loan loan = new Loan(id, loanAmount, interestRate, timePeriod, 
+        borrowerAccount, lenderAccount);
         return loan;
     }
 

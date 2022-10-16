@@ -1,5 +1,6 @@
 package repository.inmemory;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,19 +17,19 @@ public class AccountRepository implements InMemoryRepositoryInterface {
     @Override
     public void save(EntityInterface entity) {
         JSONObject json = AccountAdaptor.toJson((Account) entity);
-        accountData.put(json.get("AccountId").toString(), json);
+        accountData.put(json.get("accountId").toString(), json);
     }
 
     @Override
     public EntityInterface get(String id) {
         JSONObject json = accountData.get(id);
         AccountHolderInterface accountHolder;
-        if (json.get("accountType").toString() == "borrower") {
+        if (json.get("accountType").toString().equals("borrower")) {
             BorrowerRepository borrowerRepo = new BorrowerRepository();
             accountHolder = (AccountHolderInterface) borrowerRepo.get(
                 json.get("accountHolderId").toString());
         }
-        if (json.get("accountType").toString() == "lender") {
+        else if (json.get("accountType").toString().equals("lender")) {
             BankRepository bankRepo = new BankRepository();
             accountHolder = (AccountHolderInterface) bankRepo.get(
                 json.get("accountHolderId").toString());
@@ -46,7 +47,7 @@ public class AccountRepository implements InMemoryRepositoryInterface {
     }
 
     @Override
-    public EntityInterface search(String name) {
+    public ArrayList<EntityInterface> search(String... name) {
         // TODO Auto-generated method stub
         return null;
     }

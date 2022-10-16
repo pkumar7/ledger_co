@@ -8,6 +8,7 @@ import java.util.UUID;
 public class AccountFactory {
     public static Account newAccount(AccountHolderInterface accountHolder){
         UUID uuid=UUID.randomUUID();
+        // String id = accountHolder.accountHolderId;
         Account account = new Account(uuid.toString(), accountHolder);
         return account;
     }

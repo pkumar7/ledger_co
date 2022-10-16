@@ -18,8 +18,8 @@ public class LoanAdaptor {
         obj.put("loanAmount", loan.loanAmount.toString());    
         obj.put("interestRate", loan.interestRate.toString());    
         obj.put("timePeriod", loan.timePeriod);    
-        obj.put("borrowerId", loan.borrower.accountId);    
-        obj.put("lenderId", loan.lender.accountId);    
+        obj.put("borrowerAccountId", loan.borrower.accountId);    
+        obj.put("lenderAccountId", loan.lender.accountId);    
         return obj;
     }
 

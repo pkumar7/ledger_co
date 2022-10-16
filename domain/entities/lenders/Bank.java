@@ -12,5 +12,10 @@ public class Bank implements LenderInterface {
         this.bankName = bankName;
         this.accountHolderId = bankId;
     }
+
+    @Override
+    public String getAccountHolderId() {
+        return this.accountHolderId;
+    }
     
 }

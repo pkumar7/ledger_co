@@ -12,13 +12,14 @@ public class AccountAdaptor {
 
     public static JSONObject toJson(Account account) {
         JSONObject obj=new JSONObject();    
-        obj.put("accountHolderId", account.accountHolder.accountHolderId);    
+        obj.put("accountHolderId", account.accountHolder.getAccountHolderId());    
         obj.put("accountId", account.accountId);    
         obj.put("balance", account.balance);
-        if (account.accountHolder.getClass().getSimpleName() == "Bank") {
+        
+        if (account.accountHolder.getClass().getSimpleName().equals("Bank")) {
             obj.put("accountType", "lender");
         }
-        if (account.accountHolder.getClass().getSimpleName() == "IndividualBorrower") {
+        if (account.accountHolder.getClass().getSimpleName().equals("IndividualBorrower")) {
             obj.put("accountType", "borrower");
         }
         return obj;
