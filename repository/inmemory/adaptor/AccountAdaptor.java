@@ -28,9 +28,7 @@ public class AccountAdaptor {
     //Account(String accountId, AccountHolderInterface accountHolder)
     public static EntityInterface toEntiy(JSONObject accountJson, 
     AccountHolderInterface accountHolder) {
-        BigDecimal balance = new BigDecimal(accountJson.get("balance").toString());
         LoanAccount account = new LoanAccount(accountJson.get("accountId").toString(), accountHolder);
-        account.setBalance(balance);
         return account;   
     }
 

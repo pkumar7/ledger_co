@@ -15,15 +15,10 @@ public class LoanAccount implements EntityInterface {
     public LoanAccount(String accountId, AccountHolderInterface accountHolder) {
         this.accountId = accountId;
         this.accountHolder = accountHolder;
-        this.setBalance(BigDecimal.valueOf(0));
     }
 
     public BigDecimal getBalance() {
         return balance;
-    }
-
-    public void setBalance(BigDecimal balance) {
-        this.balance = balance;
     }
 
 }

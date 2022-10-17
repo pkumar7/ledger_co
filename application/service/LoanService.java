@@ -1,6 +1,9 @@
 package application.service;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import application.factories.LoanFactory;
 import domain.entities.LoanAccount;
@@ -16,6 +19,10 @@ public class LoanService {
     private TransactionService transactionService;
     private LedgerService ledgerService;
 
+    ReadWriteLock lock = new ReentrantReadWriteLock();
+    Lock writeLock = lock.writeLock();
+
+
     public LoanService(RepositoryInterface repository, TransactionService transactionService, 
     LedgerService ledgerService) {
         this.repository = repository;
@@ -27,8 +34,9 @@ public class LoanService {
     BigDecimal loanAmount, Integer numberOfYears, BigDecimal interestRate) {
 
         // TODO: Should add transaction here
-
-        Loan loan = LoanFactory.newLoan(loanAmount, interestRate, numberOfYears, 
+        try {
+         writeLock.lock();
+         Loan loan = LoanFactory.newLoan(loanAmount, interestRate, numberOfYears, 
                 borrowerAccount, lenderAccount);
         this.repository.save(loan);
         Transaction firstTransaction = this.transactionService.debitAmount(lenderAccount, 
@@ -37,6 +45,10 @@ public class LoanService {
             lenderAccount, loan.totalAmount());
         this.ledgerService.AddLedgerEntry(firstTransaction, secondTransaction, 0);
         return loan;
+        }
+        finally {
+            writeLock.unlock();
+        }
     }
 
     public Loan getLoan(String loanId) {
@@ -77,11 +89,17 @@ public class LoanService {
 
     private void addPayment(Loan loan, LoanAccount lenderAccount, LoanAccount borrowerAccount, 
     Integer emiNumber, BigDecimal amount) {
-        Transaction firstTransaction = this.transactionService.creditAmount(lenderAccount, 
-        borrowerAccount, amount);
-        Transaction secondTransaction = this.transactionService.debitAmount(borrowerAccount, 
-        lenderAccount, amount);
-        this.ledgerService.AddLedgerEntry(firstTransaction, secondTransaction, emiNumber);
+        try {
+            writeLock.lock();
+            Transaction firstTransaction = this.transactionService.creditAmount(lenderAccount, 
+            borrowerAccount, amount);
+            Transaction secondTransaction = this.transactionService.debitAmount(borrowerAccount, 
+            lenderAccount, amount);
+            this.ledgerService.AddLedgerEntry(firstTransaction, secondTransaction, emiNumber);    
+        }
+        finally {
+            writeLock.unlock();
+        }
     }
 
     public void addEmi(Loan loan, LoanAccount lenderAccount, 
