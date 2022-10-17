@@ -7,7 +7,7 @@ import application.service.AccountService;
 import application.service.BorrowerService;
 import application.service.LenderService;
 import application.service.LoanService;
-import domain.entities.Account;
+import domain.entities.LoanAccount;
 import domain.entities.AccountHolderInterface;
 import domain.entities.Loan;
 import domain.entities.borrowers.BorrowerInterface;
@@ -17,17 +17,17 @@ import repository.inmemory.BankRepository;
 import repository.inmemory.BorrowerRepository;
 import repository.inmemory.InMemoryRepositoryInterface;
 
-public class BalanceCommand {
+public class BalanceCommand implements CommandInterface{
 
     public String bankName;
     public String borrowerName;
     public Integer emiNumber;
 
     public BalanceCommand(String args) {
-        this.parseBalanceCommand(args);
+        this.parseCommand(args);
     }
 
-    public void parseBalanceCommand(String args) {
+    public void parseCommand(String args) {
         String[] balanceArgs = args.split(" ");
         this.bankName = balanceArgs[1];
         this.borrowerName = balanceArgs[2];
@@ -36,8 +36,8 @@ public class BalanceCommand {
 
     public void updateEmi() {
         LoanService loanService = LoanServiceFactory.getLoanServiceInstance();
-        Account lenderAccount = this.getAccount(this.getLender());
-        Account borrowerAccount = this.getAccount(this.getBorrower());
+        LoanAccount lenderAccount = this.getAccount(this.getLender());
+        LoanAccount borrowerAccount = this.getAccount(this.getBorrower());
 
         // Workaround id format for simplicity
         String loanId = borrowerAccount.accountHolder.getAccountHolderId() + 
@@ -64,10 +64,10 @@ public class BalanceCommand {
         return lenderService.getBank(this.bankName);
     }
 
-    private Account getAccount(AccountHolderInterface accountHolder) {
+    private LoanAccount getAccount(AccountHolderInterface accountHolder) {
         InMemoryRepositoryInterface accountRepository = new AccountRepository();
         AccountService accountService = new AccountService(accountRepository);
-        Account account = (Account) accountService.getAccount(accountHolder.getAccountHolderId());
+        LoanAccount account = (LoanAccount) accountService.getAccount(accountHolder.getAccountHolderId());
         return account;
     }
 

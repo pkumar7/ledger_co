@@ -2,7 +2,7 @@ package application.service;
 import java.math.BigDecimal;
 
 import application.factories.TransactionFactory;
-import domain.entities.Account;
+import domain.entities.LoanAccount;
 import domain.entities.Transaction;
 import domain.enums.EntryType;
 import repository.RepositoryInterface;
@@ -14,7 +14,7 @@ public class TransactionService {
         this.repository = repository;
     }
 
-    public Transaction creditAmount(Account sourceAccount, Account destinationAccount, 
+    public Transaction creditAmount(LoanAccount sourceAccount, LoanAccount destinationAccount, 
     BigDecimal amount) {
         Transaction tranaction = TransactionFactory.newTransaction(sourceAccount, destinationAccount, 
                 EntryType.CREDIT, amount);
@@ -22,7 +22,7 @@ public class TransactionService {
         return tranaction;
     }
 
-    public Transaction debitAmount(Account sourceAccount, Account destinationAccount, 
+    public Transaction debitAmount(LoanAccount sourceAccount, LoanAccount destinationAccount, 
     BigDecimal amount) {
         Transaction tranaction = TransactionFactory.newTransaction(sourceAccount, destinationAccount, 
                 EntryType.DEBIT, amount);

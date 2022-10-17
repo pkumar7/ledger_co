@@ -8,14 +8,14 @@ import domain.enums.EntryType;
 public class Transaction implements EntityInterface{
 
     public String transactionId;
-    public Account sourceAccount;
-    public Account destinationAccount;
+    public LoanAccount sourceAccount;
+    public LoanAccount destinationAccount;
     public Date transactionTime;
     public EntryType entryType;
     public BigDecimal amount;
 
-    public Transaction(String transactionId, Account sourceAccount, 
-    Account destinationAccount, EntryType entry, BigDecimal amount) {
+    public Transaction(String transactionId, LoanAccount sourceAccount, 
+    LoanAccount destinationAccount, EntryType entry, BigDecimal amount) {
         this.transactionId = transactionId;
         this.sourceAccount = sourceAccount;
         this.destinationAccount = destinationAccount;

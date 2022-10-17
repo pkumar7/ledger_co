@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import application.service.LedgerService;
 import application.service.LoanService;
 import application.service.TransactionService;
-import domain.entities.Account;
+import domain.entities.LoanAccount;
 import domain.entities.Loan;
 import repository.inmemory.InMemoryRepositoryInterface;
 import repository.inmemory.LedgerRepository;
@@ -28,8 +28,8 @@ public class LoanDataGenerator {
         LoanService loanService = getLoanServiceInstance();
         BigDecimal loanAmount = new BigDecimal(10000);
         BigDecimal interestRate = new BigDecimal(4);
-        Account individualBorrowerAccount = AccountDataGenerator.testAccountForBorrower();
-        Account lenderAccount = AccountDataGenerator.testAccountForBank();
+        LoanAccount individualBorrowerAccount = AccountDataGenerator.testAccountForBorrower();
+        LoanAccount lenderAccount = AccountDataGenerator.testAccountForBank();
         Loan loan = (Loan) loanService.createLoanForIndividualBorrower(individualBorrowerAccount, 
         lenderAccount, loanAmount, 5, interestRate);
         return loan;

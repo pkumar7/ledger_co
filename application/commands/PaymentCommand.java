@@ -2,7 +2,7 @@ package application.commands;
 
 import java.math.BigDecimal;
 
-public class PaymentCommand {
+public class PaymentCommand implements CommandInterface {
 
     public String bankName;
     public String borrowerName;
@@ -10,10 +10,10 @@ public class PaymentCommand {
     public Integer emiNumber;
 
     public PaymentCommand(String args) {
-        this.parsePaymentCommand(args);
+        this.parseCommand(args);
     }
 
-    public void parsePaymentCommand(String args) {
+    public void parseCommand(String args) {
         String[] paymentArgs = args.split(" ");
         this.bankName = paymentArgs[1];
         this.borrowerName = paymentArgs[2];

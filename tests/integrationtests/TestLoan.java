@@ -1,20 +1,12 @@
 package tests.integrationtests;
 import org.junit.Test;
 
-import application.service.LedgerService;
 import application.service.LoanService;
 
 import static org.junit.Assert.assertEquals;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
 
-import domain.entities.EntityInterface;
-import domain.entities.GeneralLedger;
 import domain.entities.Loan;
-import domain.enums.EntryType;
-import repository.inmemory.InMemoryRepositoryInterface;
-import repository.inmemory.LedgerRepository;
 import tests.mockdata.LoanDataGenerator;
 
 

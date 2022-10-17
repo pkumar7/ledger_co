@@ -7,7 +7,7 @@ import application.service.AccountService;
 import application.service.BorrowerService;
 import application.service.LenderService;
 import application.service.LoanService;
-import domain.entities.Account;
+import domain.entities.LoanAccount;
 import domain.entities.AccountHolderInterface;
 import domain.entities.Loan;
 import domain.entities.borrowers.BorrowerInterface;
@@ -18,7 +18,7 @@ import repository.inmemory.BankRepository;
 import repository.inmemory.BorrowerRepository;
 import repository.inmemory.InMemoryRepositoryInterface;
 
-public class LoanCommand {
+public class LoanCommand implements CommandInterface {
 
     public String bankName;
     public String borrowerName;
@@ -27,10 +27,10 @@ public class LoanCommand {
     public BigDecimal interestRate;
 
     public LoanCommand(String args) {
-        this.parseLoanCommand(args);
+        this.parseCommand(args);
     }
     
-    public void parseLoanCommand(String args) {
+    public void parseCommand(String args) {
         String[] loanArgs = args.split(" ");
         this.bankName = loanArgs[1];
         this.borrowerName = loanArgs[2];
@@ -41,8 +41,8 @@ public class LoanCommand {
 
     public String addLoan() {
         LoanService loanService = LoanServiceFactory.getLoanServiceInstance();
-        Account borrowerAccount = this.getAccount(this.getBorrower());
-        Account lenderAccount = this.getAccount(this.getLender());
+        LoanAccount borrowerAccount = this.getAccount(this.getBorrower());
+        LoanAccount lenderAccount = this.getAccount(this.getLender());
         Loan loan = loanService.createLoanForIndividualBorrower(borrowerAccount, lenderAccount, 
         this.principalAmount, this.loanYearPeriod, interestRate);
         return loan.loanId;
@@ -60,10 +60,10 @@ public class LoanCommand {
         return lenderService.createBank(this.bankName);
     }
 
-    private Account getAccount(AccountHolderInterface accountHolder) {
+    private LoanAccount getAccount(AccountHolderInterface accountHolder) {
         InMemoryRepositoryInterface accountRepository = new AccountRepository();
         AccountService accountService = new AccountService(accountRepository);
-        Account account = accountService.createAccount(accountHolder);
+        LoanAccount account = accountService.createAccount(accountHolder);
         return account;
     }
 

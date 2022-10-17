@@ -1,7 +1,7 @@
 package application.service;
 
 import application.factories.AccountFactory;
-import domain.entities.Account;
+import domain.entities.LoanAccount;
 import domain.entities.AccountHolderInterface;
 import domain.entities.EntityInterface;
 import repository.RepositoryInterface;
@@ -13,8 +13,8 @@ public class AccountService {
         this.repository = repository;
     }
 
-    public Account createAccount(AccountHolderInterface accountHolder) {
-        Account account = AccountFactory.newAccount(accountHolder);
+    public LoanAccount createAccount(AccountHolderInterface accountHolder) {
+        LoanAccount account = AccountFactory.newAccount(accountHolder);
         this.repository.save(account);
         return account;
     }

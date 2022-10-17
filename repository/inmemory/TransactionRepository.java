@@ -6,7 +6,7 @@ import java.util.Map;
 
 import org.json.simple.JSONObject;
 
-import domain.entities.Account;
+import domain.entities.LoanAccount;
 import domain.entities.EntityInterface;
 import domain.entities.Transaction;
 import repository.inmemory.adaptor.TransactionAdaptor;
@@ -25,8 +25,8 @@ public class TransactionRepository implements InMemoryRepositoryInterface {
     public EntityInterface get(String id) {
         JSONObject json = transactionData.get(id);
         AccountRepository accountRepo = new AccountRepository();
-        Account sourceAccount = (Account) accountRepo.get(json.get("sourceAccountId").toString());
-        Account destinationAccount = (Account) accountRepo.get(
+        LoanAccount sourceAccount = (LoanAccount) accountRepo.get(json.get("sourceAccountId").toString());
+        LoanAccount destinationAccount = (LoanAccount) accountRepo.get(
             json.get("destinationAccountId").toString());
         return TransactionAdaptor.toEntiy(json, sourceAccount, destinationAccount);
     }

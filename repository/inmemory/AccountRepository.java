@@ -6,7 +6,7 @@ import java.util.Map;
 
 import org.json.simple.JSONObject;
 
-import domain.entities.Account;
+import domain.entities.LoanAccount;
 import domain.entities.AccountHolderInterface;
 import domain.entities.EntityInterface;
 import repository.inmemory.adaptor.AccountAdaptor;
@@ -16,7 +16,7 @@ public class AccountRepository implements InMemoryRepositoryInterface {
 
     @Override
     public void save(EntityInterface entity) {
-        JSONObject json = AccountAdaptor.toJson((Account) entity);
+        JSONObject json = AccountAdaptor.toJson((LoanAccount) entity);
         accountData.put(json.get("accountId").toString(), json);
     }
 

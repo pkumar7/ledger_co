@@ -3,7 +3,7 @@ package application.service;
 import java.util.ArrayList;
 
 import application.factories.LedgerFactory;
-import domain.entities.Account;
+import domain.entities.LoanAccount;
 import domain.entities.EntityInterface;
 import domain.entities.GeneralLedger;
 import domain.entities.Transaction;
@@ -29,7 +29,7 @@ public class LedgerService {
         return ledgerEntries;
     }
 
-    public Integer getMaxExistingEmiCount(Account lenderAccount, Account borrowerAccount) {
+    public Integer getMaxExistingEmiCount(LoanAccount lenderAccount, LoanAccount borrowerAccount) {
         ArrayList<EntityInterface> loanLedgers = this.searchLedger(
             lenderAccount.accountId, borrowerAccount.accountId);
         GeneralLedger ledger;

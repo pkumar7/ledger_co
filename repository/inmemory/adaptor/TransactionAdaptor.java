@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 import org.json.simple.JSONObject;
 
-import domain.entities.Account;
+import domain.entities.LoanAccount;
 import domain.entities.EntityInterface;
 import domain.entities.Transaction;
 import domain.enums.EntryType;
@@ -21,8 +21,8 @@ public class TransactionAdaptor {
         return obj;
     }
 
-    public static EntityInterface toEntiy(JSONObject json, Account sourceAccount, 
-    Account destinationAccount) {
+    public static EntityInterface toEntiy(JSONObject json, LoanAccount sourceAccount, 
+    LoanAccount destinationAccount) {
         BigDecimal amount = new BigDecimal(json.get("amount").toString());
         Transaction transaction = new Transaction(json.get("transactionId").toString(),
         sourceAccount, destinationAccount, 

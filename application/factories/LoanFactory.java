@@ -2,12 +2,12 @@ package application.factories;
 import java.math.BigDecimal;
 import java.util.UUID;
 
-import domain.entities.Account;
+import domain.entities.LoanAccount;
 import domain.entities.Loan;
 
 public class LoanFactory {
     public static Loan newLoan(BigDecimal loanAmount, BigDecimal interestRate, Integer timePeriod, 
-    Account borrowerAccount, Account lenderAccount){
+    LoanAccount borrowerAccount, LoanAccount lenderAccount){
         UUID uuid=UUID.randomUUID();
 
         // creating id from accountholder id as a workaround to make the implementation simpler.

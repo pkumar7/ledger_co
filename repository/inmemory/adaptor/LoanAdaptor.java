@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 import org.json.simple.JSONObject;
 
-import domain.entities.Account;
+import domain.entities.LoanAccount;
 import domain.entities.EntityInterface;
 import domain.entities.Loan;
 
@@ -23,7 +23,7 @@ public class LoanAdaptor {
         return obj;
     }
 
-    public static EntityInterface toEntiy(JSONObject json, Account borrower, Account lender) {
+    public static EntityInterface toEntiy(JSONObject json, LoanAccount borrower, LoanAccount lender) {
         BigDecimal loanAmount = new BigDecimal(json.get("loanAmount").toString());
         BigDecimal interestRate = new BigDecimal(json.get("interestRate").toString());
         Integer timePeriod = Integer.parseInt(json.get("timePeriod").toString());

@@ -3,7 +3,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import application.factories.LoanFactory;
-import domain.entities.Account;
+import domain.entities.LoanAccount;
 import domain.entities.EntityInterface;
 import domain.entities.GeneralLedger;
 import domain.entities.Loan;
@@ -23,7 +23,7 @@ public class LoanService {
         this.ledgerService = ledgerService;
     }
 
-    public Loan createLoanForIndividualBorrower(Account borrowerAccount, Account lenderAccount, 
+    public Loan createLoanForIndividualBorrower(LoanAccount borrowerAccount, LoanAccount lenderAccount, 
     BigDecimal loanAmount, Integer numberOfYears, BigDecimal interestRate) {
 
         // TODO: Should add transaction here
@@ -44,8 +44,8 @@ public class LoanService {
         return loan;
     }
 
-    public BigDecimal getLoanBalance(Loan loan, Account lenderAccount, 
-    Account borrowerAccount, Integer emiNumber) {
+    public BigDecimal getLoanBalance(Loan loan, LoanAccount lenderAccount, 
+    LoanAccount borrowerAccount, Integer emiNumber) {
         BigDecimal balance = new BigDecimal(0);
         ArrayList<EntityInterface> loanLedgers = this.ledgerService.searchLedger(
             lenderAccount.accountId, borrowerAccount.accountId);
@@ -75,7 +75,7 @@ public class LoanService {
         return balance;
     }
 
-    private void addPayment(Loan loan, Account lenderAccount, Account borrowerAccount, 
+    private void addPayment(Loan loan, LoanAccount lenderAccount, LoanAccount borrowerAccount, 
     Integer emiNumber, BigDecimal amount) {
         Transaction firstTransaction = this.transactionService.creditAmount(lenderAccount, 
         borrowerAccount, amount);
@@ -84,13 +84,13 @@ public class LoanService {
         this.ledgerService.AddLedgerEntry(firstTransaction, secondTransaction, emiNumber);
     }
 
-    public void addEmi(Loan loan, Account lenderAccount, 
-    Account borrowerAccount, Integer emiNumber) {
+    public void addEmi(Loan loan, LoanAccount lenderAccount, 
+    LoanAccount borrowerAccount, Integer emiNumber) {
         this.addPayment(loan, lenderAccount, borrowerAccount, emiNumber, loan.monthlyEmiAmount());
     }
 
-    public void addMonthlyEmi(Loan loan, Account lenderAccount, 
-    Account borrowerAccount, Integer maxEmiCount) {
+    public void addMonthlyEmi(Loan loan, LoanAccount lenderAccount, 
+    LoanAccount borrowerAccount, Integer maxEmiCount) {
         BigDecimal balance = this.getLoanBalance(loan, lenderAccount, 
             borrowerAccount, maxEmiCount);
         Integer maxExistingEmiNumber = this.ledgerService.getMaxExistingEmiCount(
@@ -110,7 +110,7 @@ public class LoanService {
         }
     }
 
-    public void addPrePayment(Loan loan, Account lenderAccount, Account borrowerAccount, 
+    public void addPrePayment(Loan loan, LoanAccount lenderAccount, LoanAccount borrowerAccount, 
     Integer emiNumber, BigDecimal amount) {
         Integer maxExistingEmiNumber = this.ledgerService.getMaxExistingEmiCount(
         lenderAccount, borrowerAccount);

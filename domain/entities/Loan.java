@@ -11,13 +11,13 @@ public class Loan implements EntityInterface {
     public BigDecimal loanAmount;
     public BigDecimal interestRate;
     public Integer timePeriod;
-    public Account borrower;
-    public Account lender;
+    public LoanAccount borrower;
+    public LoanAccount lender;
     public String loanId;
     private BigDecimal pendingAmount;
 
     public Loan(String loanId, BigDecimal loanAmount, BigDecimal interestRate, Integer timePeriod, 
-    Account borrower, Account lender) {
+    LoanAccount borrower, LoanAccount lender) {
         this.loanId = loanId;
         this.loanAmount = loanAmount;
         this.interestRate = interestRate;

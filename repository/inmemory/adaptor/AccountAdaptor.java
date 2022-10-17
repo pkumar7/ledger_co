@@ -4,13 +4,13 @@ import java.math.BigDecimal;
 
 import org.json.simple.JSONObject;
 
-import domain.entities.Account;
+import domain.entities.LoanAccount;
 import domain.entities.AccountHolderInterface;
 import domain.entities.EntityInterface;
 
 public class AccountAdaptor {
 
-    public static JSONObject toJson(Account account) {
+    public static JSONObject toJson(LoanAccount account) {
         JSONObject obj=new JSONObject();    
         obj.put("accountHolderId", account.accountHolder.getAccountHolderId());    
         obj.put("accountId", account.accountId);    
@@ -29,7 +29,7 @@ public class AccountAdaptor {
     public static EntityInterface toEntiy(JSONObject accountJson, 
     AccountHolderInterface accountHolder) {
         BigDecimal balance = new BigDecimal(accountJson.get("balance").toString());
-        Account account = new Account(accountJson.get("accountId").toString(), accountHolder);
+        LoanAccount account = new LoanAccount(accountJson.get("accountId").toString(), accountHolder);
         account.setBalance(balance);
         return account;   
     }
