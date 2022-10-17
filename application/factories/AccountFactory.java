@@ -8,8 +8,11 @@ import java.util.UUID;
 public class AccountFactory {
     public static Account newAccount(AccountHolderInterface accountHolder){
         UUID uuid=UUID.randomUUID();
-        // String id = accountHolder.accountHolderId;
-        Account account = new Account(uuid.toString(), accountHolder);
+
+        // making accountHolder id as id for simplicity, search can be implemented in 
+        // accountholder id
+        String id = accountHolder.getAccountHolderId();
+        Account account = new Account(id, accountHolder);
         return account;
     }
 

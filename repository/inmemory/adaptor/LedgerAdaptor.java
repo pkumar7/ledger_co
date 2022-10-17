@@ -13,13 +13,15 @@ public class LedgerAdaptor {
         obj.put("ledgerId", ledger.ledgerId);
         obj.put("firstAccountId", ledger.firstTransaction.sourceAccount.accountId);
         obj.put("secondAccountId", ledger.firstTransaction.destinationAccount.accountId);
+        obj.put("emiNumber", ledger.emiNumber);
         return obj;
     }
 
     public static EntityInterface toEntiy(JSONObject json, 
     Transaction firstTransaction, Transaction secondTransaction) {
+        Integer emiNumber = Integer.parseInt(json.get("emiNumber").toString());
         GeneralLedger ledger = new GeneralLedger(json.get("ledgerId").toString(), 
-        firstTransaction, secondTransaction);
+        firstTransaction, secondTransaction, emiNumber);
         return ledger;   
     }
 

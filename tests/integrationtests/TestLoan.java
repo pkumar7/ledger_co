@@ -23,8 +23,8 @@ public class TestLoan {
     public void testAddLoan() {
         LoanService loanService = LoanDataGenerator.getLoanServiceInstance();
         Loan loan = LoanDataGenerator.testLoan();
-        String expectedLoanId = loan.borrower.accountHolder.accountHolderId + 
-                        loan.lender.accountHolder.accountHolderId;
+        String expectedLoanId = loan.borrower.accountHolder.getAccountHolderId() + 
+                        loan.lender.accountHolder.getAccountHolderId();
         Loan savedLoan = loanService.getLoan(loan.loanId);
         assertEquals(expectedLoanId, savedLoan.loanId);
         assertEquals(loan.loanAmount, savedLoan.loanAmount);
@@ -32,26 +32,6 @@ public class TestLoan {
         assertEquals(loan.timePeriod, savedLoan.timePeriod);
         assertEquals(loan.lender.accountId, savedLoan.lender.accountId);
         assertEquals(loan.borrower.accountId, savedLoan.borrower.accountId);
-        InMemoryRepositoryInterface ledgerRepo = new LedgerRepository();
-        LedgerService ledgerService = new LedgerService(ledgerRepo);
-        ArrayList<EntityInterface> ledgers =  ledgerService.searchLedger(loan.borrower.accountId, loan.lender.accountId);
-        System.out.println(ledgers);
-        GeneralLedger firstLedgerEntry = (GeneralLedger) ledgers.get(0);
-        BigDecimal loanAmount = new BigDecimal(10000);
-        assertEquals(firstLedgerEntry.firstTransaction.amount, loanAmount);
-        assertEquals(firstLedgerEntry.secondTransaction.amount, loanAmount);
-
-        assertEquals(firstLedgerEntry.firstTransaction.sourceAccount.accountId, 
-            loan.lender.accountId);
-        assertEquals(firstLedgerEntry.firstTransaction.destinationAccount.accountId, 
-            loan.borrower.accountId);
-        assertEquals(firstLedgerEntry.firstTransaction.entryType, EntryType.DEBIT);
-        assertEquals(firstLedgerEntry.secondTransaction.sourceAccount.accountId, 
-            loan.borrower.accountId);
-        assertEquals(firstLedgerEntry.secondTransaction.destinationAccount.accountId, 
-            loan.lender.accountId);
-        assertEquals(firstLedgerEntry.secondTransaction.entryType, EntryType.CREDIT);
-
     }
 
 }

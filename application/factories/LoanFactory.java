@@ -14,12 +14,11 @@ public class LoanFactory {
         // Can use uuid and implement search functionality on top of borrower and lender names, as
         // input are only the names.
 
-        String id = borrowerAccount.accountHolder.accountHolderId + 
-        lenderAccount.accountHolder.accountHolderId;
+        String id = borrowerAccount.accountHolder.getAccountHolderId() + 
+        lenderAccount.accountHolder.getAccountHolderId();
 
         Loan loan = new Loan(id, loanAmount, interestRate, timePeriod, 
         borrowerAccount, lenderAccount);
         return loan;
     }
-
 }

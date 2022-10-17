@@ -2,11 +2,11 @@ package tests.integrationtests;
 import org.junit.Test;
 
 import application.service.LedgerService;
-import application.service.LoanService;
 
 import static org.junit.Assert.assertEquals;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 
 import domain.entities.EntityInterface;
@@ -20,13 +20,14 @@ import tests.mockdata.LoanDataGenerator;
 
 public class TestLedger {
     @Test
-    public void testAddLoan() {
+    public void testAddLedger() {
         Loan loan = LoanDataGenerator.testLoan();
         InMemoryRepositoryInterface ledgerRepo = new LedgerRepository();
         LedgerService ledgerService = new LedgerService(ledgerRepo);
         ArrayList<EntityInterface> ledgers =  ledgerService.searchLedger(loan.borrower.accountId, loan.lender.accountId);
         GeneralLedger firstLedgerEntry = (GeneralLedger) ledgers.get(0);
-        BigDecimal loanAmount = new BigDecimal(10000);
+        BigDecimal loanAmount = new BigDecimal(12000);
+        loanAmount = loanAmount.setScale(2, RoundingMode.HALF_UP); // this does change bd
         assertEquals(firstLedgerEntry.firstTransaction.amount, loanAmount);
         assertEquals(firstLedgerEntry.secondTransaction.amount, loanAmount);
 

@@ -3,6 +3,7 @@ package application.service;
 import java.util.ArrayList;
 
 import application.factories.LedgerFactory;
+import domain.entities.Account;
 import domain.entities.EntityInterface;
 import domain.entities.GeneralLedger;
 import domain.entities.Transaction;
@@ -15,8 +16,10 @@ public class LedgerService {
         this.repository = repository;
     }
 
-    public void AddLedgerEntry(Transaction firstTransaction, Transaction secondTransaction) {
-        GeneralLedger ledger = LedgerFactory.newLedgerEntry(firstTransaction, secondTransaction);
+    public void AddLedgerEntry(Transaction firstTransaction, Transaction secondTransaction,
+    Integer emiNumber) {
+        GeneralLedger ledger = LedgerFactory.newLedgerEntry(firstTransaction, 
+        secondTransaction, emiNumber);
         this.repository.save(ledger);
     }
 
@@ -24,6 +27,20 @@ public class LedgerService {
         ArrayList<EntityInterface> ledgerEntries = this.repository.search(
             firstAccountId, secondAccountId);
         return ledgerEntries;
+    }
+
+    public Integer getMaxExistingEmiCount(Account lenderAccount, Account borrowerAccount) {
+        ArrayList<EntityInterface> loanLedgers = this.searchLedger(
+            lenderAccount.accountId, borrowerAccount.accountId);
+        GeneralLedger ledger;
+        Integer maxExistingEmiNumber = 0;
+        for (int i=0; i<loanLedgers.size(); i++) {
+            ledger = (GeneralLedger) loanLedgers.get(i);
+            if (ledger.emiNumber > maxExistingEmiNumber) {
+                maxExistingEmiNumber = ledger.emiNumber;
+            }
+        }
+        return maxExistingEmiNumber;
     }
 
 }
